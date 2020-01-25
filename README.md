@@ -1,7 +1,7 @@
 # gRPC
 gRPC POC using Java
 
-** What is gRPC? **
+**What is gRPC?**
 
 Google Remote Procedure Call. Open source framework by Google for remote procedure calls based on Protocol Buffers. 
 
@@ -33,7 +33,7 @@ grpc-java setup: https://github.com/grpc/grpc-java
 To start the POC, run below:
 
 ```
-mvn clean install   //this will generate grpc files from the given proto file for messages and services.
+mvn clean install   //maven will generate java files from the given proto messages and services.
 Start GrpcServer.java
 Start GrpcClient.java // RPC onto the server
 ```
@@ -47,12 +47,5 @@ Important files to checkout in this POC:
 When you build the proto files, the request/response and the services java classes get generated.
 We can then write detailed service implementation extending these classes (see GreetingServiceImpl.java).
 Then we can override the methods of base impl to give the code.
-
-
-
- 
-
-
-
 
 
