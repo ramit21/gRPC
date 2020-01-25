@@ -3,6 +3,7 @@ package com.grpc.poc.client;
 import greet.GreetRequest;
 import greet.GreetResponse;
 import greet.GreetServiceGrpc;
+import greet.GreetServiceGrpc.GreetServiceBlockingStub;
 import greet.Greeting;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -19,6 +20,7 @@ public class GrpcClient {
 		GreetServiceGrpc.GreetServiceBlockingStub greetClient = GreetServiceGrpc.newBlockingStub(channel);
 		
 		makeUnaryCall(greetClient);
+		makeServerStreamingCall(greetClient);
 		
 		//shutdown channel
 		System.out.println("GRPC client end");
@@ -40,5 +42,24 @@ public class GrpcClient {
 		
 		System.out.println(greetResponse.getResult());
 	}
+	
+	private static void makeServerStreamingCall(GreetServiceBlockingStub greetClient) {
+		Greeting greeting = Greeting.newBuilder()
+				.setFirstName("Ramit")
+				.setLastName("Sharma")
+				.build();
+		
+		GreetRequest greetRequest = GreetRequest.newBuilder()
+				.setGreeting(greeting)
+				.build();
+		
+		//stream the responses in a blocking manner
+		greetClient.greetManytimes(greetRequest)
+				.forEachRemaining(greetResponse -> {
+					System.out.println(greetResponse.getResult());
+				});
+		
+	}
+
 
 }
