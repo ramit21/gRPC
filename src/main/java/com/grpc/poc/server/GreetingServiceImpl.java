@@ -56,6 +56,7 @@ public class GreetingServiceImpl extends GreetServiceImplBase{
 
 			@Override
 			public void onError(Throwable t) {
+				
 			}
 
 			@Override

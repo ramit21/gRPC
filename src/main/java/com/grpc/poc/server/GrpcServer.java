@@ -10,6 +10,7 @@ import io.grpc.ServerBuilder;
  *
  */
 public class GrpcServer {
+	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		System.out.println("Starting GRPC server");
 		Server server = ServerBuilder.forPort(50051)
