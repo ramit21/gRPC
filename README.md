@@ -9,7 +9,7 @@ Request, response messages and the api definition are created in a single .proto
 
 RPC makes it look like as if you are directly calling a function on the server, whereas the function gets called over the network.
 
-**Advantages of using protocol buffers**
+**Advantages of using gRPC**
 
 1. Protocol buffers are language agnostic. Hence, the client and server can be on different tech stack, but can easily integrate with each other using protocol buffers.
 2. Parsing JSON is CPU intensive as it is human readable format, whereas protocol buffers (binay) are close to machine language.
