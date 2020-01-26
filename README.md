@@ -3,7 +3,7 @@ gRPC POC using Java
 
 **What is gRPC?**
 
-Google Remote Procedure Call. Open source framework by Google for remote procedure calls based on Protocol Buffers. 
+Google's gRPC Remote Procedure Call. Open source framework by Google for remote procedure calls based on Protocol Buffers. 
 
 Request, response messages and the api definition are created in a single .proto file, and shared across to the client.
 
@@ -12,7 +12,7 @@ RPC makes it look like as if you are directly calling a function on the server, 
 **Advantages of using gRPC**
 
 1. Protocol buffers are language agnostic. Hence, the client and server can be on different tech stack, but can easily integrate with each other using protocol buffers.
-2. Parsing JSON is CPU intensive as it is human readable format, whereas protocol buffers (binay) are close to machine language.
+2. Parsing JSON is CPU intensive as it is human readable format, whereas protocol buffers (serialized binary data) are close to machine language.
 3. gRPC is HTTP/2 based, hence responses arrive much faster than traditional HTTP/2.
 4. Being based on HTTP/2, also makes it secure.
 5. HTTP/2 also makes streaming possible with gRPC request/response.
@@ -59,9 +59,9 @@ If server is under development, and client has not been provided with the final 
 
 **Conclusion**:
 
-Low network latency and the fact that Google protocol buffers can be used across different programming platforms, make gRPC a very good alternative for building microservices. While REST is verb oriented, gRPC advocates API based approach. 
+Low network latency and the fact that Google protocol buffers can be used across different programming platforms make gRPC a very good alternative for building microservices. While REST is verb oriented, gRPC advocates API based approach. 
 
-gRPC is really good for microservice/mobile-app to microservice communication. But REST is still the de-facto option for web applications. Even though a plugin has now been introduced for creating gRPC client on the browser (link below), the plaintext JSON response of REST Apis still win the race as it is javascript friendly.
+gRPC is really good for microservice to microservice communication. But REST is still the de-facto option for web applications. Even though a plugin has now been introduced for creating gRPC client on the browser (link below), the plaintext JSON response of REST Apis still win the race as it is javascript friendly.
 
 
 
