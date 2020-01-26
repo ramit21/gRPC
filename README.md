@@ -21,10 +21,10 @@ RPC makes it look like as if you are directly calling a function on the server, 
 
 **Types of gRPC APIs** :
 
-1. <u>Unary</u>: traditional request-response
-2. <u>Server Streaming</u>: Client sends request, and server sends back multiple responses.
-3. <u>Client Streaming</u>: Client sends multiple requests, and server sends back single response on receiving final request fragment.
-4. <u>Bi-Directional Streaming</u>: Both client and server send and receive data asynchronously. No. of requests and the no. of responses may not match.
+1. <i>Unary</i>: traditional request-response
+2. <i>Server Streaming</i>: Client sends request, and server sends back multiple responses.
+3. <i>Client Streaming</i>: Client sends multiple requests, and server sends back single response on receiving final request fragment.
+4. <i>Bi-Directional Streaming</i>: Both client and server send and receive data asynchronously. No. of requests and the no. of responses may not match.
 
 **Running this POC** :
 
@@ -39,21 +39,20 @@ Start GrpcClient.java // RPC onto the server
 ```
 
 Important files in this POC:
-1. <u>greet.proto</u>: Schema for request/response and services.
-2. <u>GreetServiceImpl.java</u>: API definition
-3. <u>GrpcServer.java</u>: Server
-4. <u>GrpcClient.java</u>: Client
-5. <u></u>:
-6. <u></u>:
+1. <i>greet.proto</i>: Schema for request/response and services.
+2. <i>GreetServiceImpl.java</i>: API definition
+3. <i>GrpcServer.java</i>: Server
+4. <i>GrpcClient.java</i>: Client
+5. <i></i>: 
+6. <i></i>: 
 
 When you build the proto files, the request/response and the services java classes get generated.
 We can then write detailed service implementation extending these classes (see GreetingServiceImpl.java), and override the methods of base impl to write our api code.
 
 
-
 **Conclusion**
 
-Low network latency and the fact that Google protocol buffers can be used across different programming languages, make gRPC a very good alternative for building microservices. While REST is verb oriented, gRPC advocates API based approach. 
+Low network latency and the fact that Google protocol buffers can be used across different programming platforms, make gRPC a very good alternative for building microservices. While REST is verb oriented, gRPC advocates API based approach. 
 
 gRPC is really good for microserice/mobile-app to microservice communication. But REST is still the de-facto option for web applications. Even though a plugin has now been introduced for creating gRPC client on the browser (link below), the plaintext JSON response of REST Apis still win the race as it is javascript friendly.
 
