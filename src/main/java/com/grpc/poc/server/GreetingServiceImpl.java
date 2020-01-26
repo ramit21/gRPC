@@ -9,6 +9,7 @@ import io.grpc.stub.StreamObserver;
 public class GreetingServiceImpl extends GreetServiceImplBase{
 
 	@Override
+	//Unary
 	public void greet(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
 		// Fetch values from request object
 		Greeting greeting = request.getGreeting();
@@ -22,6 +23,7 @@ public class GreetingServiceImpl extends GreetServiceImplBase{
 	}
 	
 	@Override
+	//Server streaming
 	public void greetManytimes(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
 		Greeting greeting = request.getGreeting();
 		String firstName = greeting.getFirstName();
@@ -38,5 +40,31 @@ public class GreetingServiceImpl extends GreetServiceImplBase{
 		}finally {
 			responseObserver.onCompleted();
 		}
+	}
+	
+	@Override
+	//Bi-directional streaming : note that return type is not void
+	public StreamObserver<GreetRequest> greetEveryone(StreamObserver<GreetResponse> responseObserver) {
+		StreamObserver<GreetRequest> requestObserver = new StreamObserver<GreetRequest>() {
+
+			@Override
+			public void onNext(GreetRequest request) {
+				String result = "Hello " + request.getGreeting().getFirstName();
+				// Set the response for sending back to the client
+				GreetResponse response = GreetResponse.newBuilder().setResult(result).build();
+				responseObserver.onNext(response);
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				
+			}
+
+			@Override
+			public void onCompleted() {
+				responseObserver.onCompleted();
+			}
+		};
+		return requestObserver;
 	}
 }

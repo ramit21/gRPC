@@ -24,7 +24,7 @@ RPC makes it look like as if you are directly calling a function on the server, 
 1. <i>Unary</i>: traditional request-response
 2. <i>Server Streaming</i>: Client sends request, and server sends back multiple responses.
 3. <i>Client Streaming</i>: Client sends multiple requests, and server sends back single response on receiving final request fragment.
-4. <i>Bi-Directional Streaming</i>: Both client and server send and receive data asynchronously. No. of requests and the no. of responses may not match.
+4. <i>Bi-Directional Streaming</i>: Both client and server send and receive data asynchronously. No. of requests and the no. of responses may not match. Good for chat applications.
 
 **Running this POC** :
 
