@@ -51,7 +51,7 @@ We can then write detailed service implementation extending these classes (see G
 
 Deadlines are used at client side to cancel the call if response is not received in given time.
 
-Unlike so many error codes for HTTP which are confusing and not properly used by the developers, the error codes in gRPC are limited (link below)
+Unlike so many error codes for HTTP which are confusing and not properly used by the developers, the error codes in gRPC are limited (link below for error codes).
 
 **Evans CLI and Reflections**
 
