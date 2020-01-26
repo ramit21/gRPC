@@ -49,12 +49,17 @@ Important files in this POC:
 When you build the proto files, the request/response and the services java classes get generated.
 We can then write detailed service implementation extending these classes (see GreetingServiceImpl.java), and override the methods of base impl to write our api code.
 
+Deadlines are used at client side to cancel the call if response is not received in given time.
+
+**Evans CLI and Reflections**
+
+If server is under development, and client has not been provided with the final proto file, how can the client still access what all services are being developed on server? For this, use the Evans cli on client side, and enable proto reflection service on the server side.
 
 **Conclusion**:
 
 Low network latency and the fact that Google protocol buffers can be used across different programming platforms, make gRPC a very good alternative for building microservices. While REST is verb oriented, gRPC advocates API based approach. 
 
-gRPC is really good for microserice/mobile-app to microservice communication. But REST is still the de-facto option for web applications. Even though a plugin has now been introduced for creating gRPC client on the browser (link below), the plaintext JSON response of REST Apis still win the race as it is javascript friendly.
+gRPC is really good for microservice/mobile-app to microservice communication. But REST is still the de-facto option for web applications. Even though a plugin has now been introduced for creating gRPC client on the browser (link below), the plaintext JSON response of REST Apis still win the race as it is javascript friendly.
 
 
 
@@ -65,4 +70,5 @@ gRPC is really good for microserice/mobile-app to microservice communication. Bu
 3. https://grpc.io/blog/loadbalancing/
 4. https://grpc.io/blog/state-of-grpc-web/
 5. https://grpc.io/blog/a_short_introduction_to_channelz/
+6. https://grpc.io/blog/deadlines/
 

@@ -8,8 +8,10 @@ import greet.GreetRequest;
 import greet.GreetResponse;
 import greet.GreetServiceGrpc;
 import greet.Greeting;
+import io.grpc.Deadline;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 public class GrpcClient {
@@ -25,6 +27,7 @@ public class GrpcClient {
 		makeServerStreamingCall(channel);
 		makeClientStreamingCall(channel);
 		makeBiDirectionalCall(channel);
+		makeUnaryCallWithDeadline(channel);
 		
 		//shutdown channel
 		channel.isShutdown();
@@ -154,6 +157,30 @@ public class GrpcClient {
 			e.printStackTrace();
 		}
 		System.out.println("Bidirectional streaming completed <<<<<<");
+	}
+	
+	private static void makeUnaryCallWithDeadline(ManagedChannel channel) {
+		System.out.println("Deadline start >>>>>>");
+		GreetServiceGrpc.GreetServiceBlockingStub greetClient = GreetServiceGrpc.newBlockingStub(channel);
+		Greeting greeting = Greeting.newBuilder()
+				.setFirstName("Ramit")
+				.setLastName("Sharma")
+				.build();
+		
+		GreetRequest greetRequest = GreetRequest.newBuilder()
+				.setGreeting(greeting)
+				.build();
+		try {
+			//call the backend api with deadline
+			GreetResponse greetResponse = greetClient
+					.withDeadline(Deadline.after(500, TimeUnit.MILLISECONDS)) //change to 100 to see deadline exception			
+					.greetWithDeadline(greetRequest);
+			System.out.println(greetResponse.getResult());
+		}catch(StatusRuntimeException e) {
+			e.printStackTrace();
+		}
+			
+		System.out.println("Deadline completed <<<<<<");
 	}
 
 }

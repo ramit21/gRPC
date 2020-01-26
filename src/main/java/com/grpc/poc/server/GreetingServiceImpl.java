@@ -4,6 +4,7 @@ import greet.GreetRequest;
 import greet.GreetResponse;
 import greet.GreetServiceGrpc.GreetServiceImplBase;
 import greet.Greeting;
+import io.grpc.Context;
 import io.grpc.stub.StreamObserver;
 
 public class GreetingServiceImpl extends GreetServiceImplBase{
@@ -93,5 +94,29 @@ public class GreetingServiceImpl extends GreetServiceImplBase{
 			}
 		};
 		return requestObserver;
+	}
+	
+	@Override
+	//API with defined deadline.
+	public void greetWithDeadline(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
+		Context context = Context.current(); //to check if client has cancelled the request
+		try {
+			for(int i=0; i< 3; i++) {
+				if(!context.isCancelled())
+					Thread.sleep(100);
+				else
+					return;
+			}
+			
+			System.out.println("Sending response within deadline");
+			Greeting greeting = request.getGreeting();
+			String firstName = greeting.getFirstName();
+			String result = "Hello " + firstName;
+			GreetResponse response = GreetResponse.newBuilder().setResult(result).build();
+			responseObserver.onNext(response);
+			responseObserver.onCompleted();
+		}catch(InterruptedException e) {
+			
+		}
 	}
 }
