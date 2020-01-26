@@ -58,9 +58,10 @@ gRPC is really good for microserice/mobile-app to microservice communication. Bu
 
 
 **References and further reads**
-https://www.udemy.com/course/grpc-java/
-https://dzone.com/articles/learning-about-the-headers-used-for-grpc-over-http
-https://grpc.io/blog/loadbalancing/
-https://grpc.io/blog/state-of-grpc-web/
-https://grpc.io/blog/a_short_introduction_to_channelz/
+
+1. https://www.udemy.com/course/grpc-java/
+2. https://dzone.com/articles/learning-about-the-headers-used-for-grpc-over-http
+3. https://grpc.io/blog/loadbalancing/
+4. https://grpc.io/blog/state-of-grpc-web/
+5. https://grpc.io/blog/a_short_introduction_to_channelz/
 
