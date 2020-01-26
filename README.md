@@ -43,8 +43,6 @@ Important files in this POC:
 2. <i>GreetServiceImpl.java</i>: API definition
 3. <i>GrpcServer.java</i>: Server
 4. <i>GrpcClient.java</i>: Client
-5. <i></i>: 
-6. <i></i>: 
 
 When you build the proto files, the request/response and the services java classes get generated.
 We can then write detailed service implementation extending these classes (see GreetingServiceImpl.java), and override the methods of base impl to write our api code.
@@ -52,6 +50,8 @@ We can then write detailed service implementation extending these classes (see G
 Deadlines are used at client side to cancel the call if response is not received in given time.
 
 Unlike so many error codes for HTTP which are confusing and not properly used by the developers, the error codes in gRPC are limited (link below for error codes).
+
+You can access the headers at the client side and the server side using client and server interceptors respectively. (link below)
 
 **Evans CLI and Reflections**
 
@@ -74,3 +74,4 @@ gRPC is really good for microservice/mobile-app to microservice communication. B
 5. https://grpc.io/blog/a_short_introduction_to_channelz/
 6. https://grpc.io/blog/deadlines/
 7. https://grpc.io/docs/guides/error/
+8. https://github.com/grpc/grpc-java/tree/master/examples/src/main/java/io/grpc/examples/header
