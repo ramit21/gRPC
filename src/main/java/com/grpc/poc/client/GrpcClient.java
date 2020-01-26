@@ -23,6 +23,7 @@ public class GrpcClient {
 		
 		makeUnaryCall(channel);
 		makeServerStreamingCall(channel);
+		makeClientStreamingCall(channel);
 		makeBiDirectionalCall(channel);
 		
 		//shutdown channel
@@ -51,6 +52,7 @@ public class GrpcClient {
 	
 	private static void makeServerStreamingCall(ManagedChannel channel) {
 		System.out.println("Server streaming started >>>>>>");
+		//blocking sync client
 		GreetServiceGrpc.GreetServiceBlockingStub greetClient = GreetServiceGrpc.newBlockingStub(channel);
 		Greeting greeting = Greeting.newBuilder()
 				.setFirstName("Ramit")
@@ -69,8 +71,52 @@ public class GrpcClient {
 		System.out.println("Server streaming completed <<<<<<");
 	}
 
+	private static void makeClientStreamingCall(ManagedChannel channel) {
+		System.out.println("Client streaming started >>>>>>");
+		CountDownLatch latch = new CountDownLatch(1); //latch to wait for the server response
+		//non-blocking async client
+		GreetServiceGrpc.GreetServiceStub asyncClient = GreetServiceGrpc.newStub(channel);
+		StreamObserver<GreetRequest> requestObserver = asyncClient.longGreet(new StreamObserver<GreetResponse>() {
+		
+			@Override
+			public void onNext(GreetResponse response) {
+				//handle multiple responses from server
+				System.out.println("Server response: "+ response.getResult());				
+			}
+
+			@Override
+			public void onError(Throwable t) {
+				latch.countDown();
+			}
+
+			@Override
+			public void onCompleted() {
+				//server response completed
+				latch.countDown();
+			}
+		});
+		
+		//send multiple requests to server
+		Arrays.asList("Ramit", "Sharma", "Kohli", "Rohit", "KL").forEach(name -> {
+			requestObserver.onNext(GreetRequest.newBuilder().setGreeting(
+										Greeting.newBuilder().setFirstName(name))
+									.build());
+		});
+		
+		requestObserver.onCompleted(); //tell server that client is done sending data
+		
+		try {
+			latch.await(3, TimeUnit.SECONDS);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Client streaming completed <<<<<<");
+		
+	}
+	
 	private static void makeBiDirectionalCall(ManagedChannel channel) {
 		System.out.println("Bidirectional streaming started >>>>>>");
+		//non-blocking async client
 		GreetServiceGrpc.GreetServiceStub asyncClient = GreetServiceGrpc.newStub(channel);
 		CountDownLatch latch = new CountDownLatch(1);
 		StreamObserver<GreetRequest> requestObserver = asyncClient.greetEveryone(new StreamObserver<GreetResponse>() {

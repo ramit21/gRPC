@@ -43,6 +43,32 @@ public class GreetingServiceImpl extends GreetServiceImplBase{
 	}
 	
 	@Override
+	//client streaming, note that return type is not void
+	public StreamObserver<GreetRequest> longGreet(StreamObserver<GreetResponse> responseObserver) {
+		StreamObserver<GreetRequest> requestObserver = new StreamObserver<GreetRequest>() {
+			
+			String result = "Hello ";
+			
+			@Override
+			public void onNext(GreetRequest request) {
+				result += request.getGreeting().getFirstName() +" ";
+			}
+
+			@Override
+			public void onError(Throwable t) {
+			}
+
+			@Override
+			public void onCompleted() {
+				//client is done
+				responseObserver.onNext(GreetResponse.newBuilder().setResult(result).build());
+				responseObserver.onCompleted();
+			}
+		};
+		return requestObserver;
+	}
+	
+	@Override
 	//Bi-directional streaming : note that return type is not void
 	public StreamObserver<GreetRequest> greetEveryone(StreamObserver<GreetResponse> responseObserver) {
 		StreamObserver<GreetRequest> requestObserver = new StreamObserver<GreetRequest>() {
