@@ -51,6 +51,8 @@ We can then write detailed service implementation extending these classes (see G
 
 Deadlines are used at client side to cancel the call if response is not received in given time.
 
+Unlike so many error codes for HTTP which are confusing and not properly used by the developers, the error codes in gRPC are limited (link below)
+
 **Evans CLI and Reflections**
 
 If server is under development, and client has not been provided with the final proto file, how can the client still access what all services are being developed on server? For this, use the Evans cli on client side, and enable proto reflection service on the server side.
@@ -71,4 +73,4 @@ gRPC is really good for microservice/mobile-app to microservice communication. B
 4. https://grpc.io/blog/state-of-grpc-web/
 5. https://grpc.io/blog/a_short_introduction_to_channelz/
 6. https://grpc.io/blog/deadlines/
-
+7. https://grpc.io/docs/guides/error/
