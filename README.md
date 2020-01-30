@@ -75,3 +75,4 @@ gRPC is really good for microservice to microservice communication. But REST is 
 6. https://grpc.io/blog/deadlines/
 7. https://grpc.io/docs/guides/error/
 8. https://github.com/grpc/grpc-java/tree/master/examples/src/main/java/io/grpc/examples/header
+9. https://www.linkedin.com/pulse/why-rest-when-you-can-grpc-ramit-sharma/
